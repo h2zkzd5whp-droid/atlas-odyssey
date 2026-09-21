@@ -94,7 +94,7 @@ git switch develop
 git pull --prune
 git cherry develop feature/N-<요약>              # 전부 '-'면 develop에 다 들어간 것
 git branch -D feature/N-<요약>
-git cherry develop pr<P>                         # /code-review가 남긴 브랜치. 전부 '-'면
+git cherry develop pr<P>                         # /code-review가 남긴 브랜치가 있으면. 전부 '-'일 때만 아래 줄 실행, '+'가 있으면 지우지 말 것
 git branch -D pr<P>
 gh issue view N --json state -q .state           # CLOSED인지 확인
 ```
@@ -146,9 +146,9 @@ macOS는 `brew install gh`로 최신 버전이 설치되므로 해당 없음.
 
 ## /code-review 결과가 비어 옴
 
-**증상**: Claude Code에서 `/code-review P`를 돌리면 결과가 `(none)`으로 온다. PR #4에서는 마크다운 코드 스팬이 깨진 버전을 리뷰했는데도 Claude에게 넘어온 발견 사항이 없었다.
+**증상**: Claude Code에서 `/code-review P`(low)를 돌리면 결과가 `(none)`으로 온다. PR #4에서는 마크다운 코드 스팬이 깨진 버전을 리뷰했는데도 빈 결과였다.
 
-**원인**: `/code-review`는 별도 에이전트로 실행되고, 발견 사항을 텍스트가 아니라 사용자 화면의 카드로만 표시하게 되어 있다. Claude가 받는 텍스트 결과는 비어 있어 "발견 0건"과 구분할 수 없다.
+**원인**: PR #6에서는 발견 사항이 텍스트로 돌아왔으므로, 빈 결과는 "발견 0건"으로 보인다. 즉 PR #4에서는 low 수준 리뷰가 문서 렌더링 문제를 놓쳤다.
 
 **해결**: 빈 결과를 통과로 보지 않는다. `gh pr diff P`로 직접 리뷰하는 것이 실제 관문이다. 또한 `/code-review`는 `git fetch origin pull/P/head:prP`로 로컬 브랜치 `prP`를 남기므로 정리 단계에서 지운다.
 
