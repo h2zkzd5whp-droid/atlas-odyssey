@@ -25,9 +25,13 @@ description: Step 3 of this repo's GitHub flow — commit by concern, push, open
    ```bash
    git push -u origin feature/N-<요약>
    ```
-3. PR. 이미 열려 있으면(`gh pr view --json number`) 이 단계는 건너뛴다. 본문은 `.github/pull_request_template.md` 형식을 채우고 첫 줄 `Closes #N`, 작업 내용에 보고서 경로를 적는다. "PR diff를 직접 리뷰했다"는 체크하지 않는다
+3. PR. 이미 열려 있으면(`gh pr view --json number`) 생성은 건너뛴다. 본문은 `.github/pull_request_template.md` 형식을 채우고 첫 줄 `Closes #N`, 작업 내용에 보고서 경로를 적는다. "PR diff를 직접 리뷰했다"는 체크하지 않는다
    ```bash
    gh pr create --base develop --title "<type>: <summary>" --body-file pr.md
+   ```
+   새로 열었든 이미 있었든 PR 번호 `P`를 확인한다
+   ```bash
+   gh pr view --json number,url -q '.number, .url'
    ```
 4. CI. 워크플로가 없으면 건너뛴다
    ```bash
