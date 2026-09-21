@@ -75,8 +75,11 @@ CI 워크플로 작성 후 사용.
 ## 9. PR diff 리뷰
 
 ```bash
+gh pr view P --json headRefOid -q .headRefOid    # git rev-parse HEAD와 같은지 먼저 확인
 gh pr diff P
 ```
+
+푸시 직후에는 PR diff가 이전 커밋 기준일 수 있다 ([트러블슈팅](#푸시-직후-gh-pr-diff가-이전-내용을-보여줌)).
 
 Claude Code에서는 `/code-review P`도 돌린다. 단, 결과가 비어 와도 직접 리뷰는 생략하지 않는다 ([트러블슈팅](#code-review-결과가-비어-옴)).
 
@@ -151,6 +154,14 @@ macOS는 `brew install gh`로 최신 버전이 설치되므로 해당 없음.
 **원인**: PR #6에서는 발견 사항이 텍스트로 돌아왔으므로, 빈 결과는 "발견 0건"으로 보인다. 즉 PR #4에서는 low 수준 리뷰가 문서 렌더링 문제를 놓쳤다.
 
 **해결**: 빈 결과를 통과로 보지 않는다. `gh pr diff P`로 직접 리뷰하는 것이 실제 관문이다. 또한 `/code-review`는 `git fetch origin pull/P/head:prP`로 로컬 브랜치 `prP`를 남기므로 정리 단계에서 지운다.
+
+## 푸시 직후 gh pr diff가 이전 내용을 보여줌
+
+**증상**: 리뷰 지적을 고쳐 푸시한 직후 `gh pr diff P`를 실행했더니 고치기 전 내용이 나왔다 (PR #6). 잠시 후 다시 실행하니 정상.
+
+**원인**: GitHub이 새 커밋을 PR에 반영하기까지 짧은 지연이 있다.
+
+**해결**: 리뷰 전에 `gh pr view P --json headRefOid -q .headRefOid`가 `git rev-parse HEAD`와 같은지 확인한다. 다르면 잠시 후 다시 확인한다.
 
 ## Windows 쪽에서 WSL 명령을 실행할 때만 생기는 문제
 
