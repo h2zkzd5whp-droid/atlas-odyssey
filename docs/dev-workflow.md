@@ -8,7 +8,7 @@
 
 Claude Code 스킬로 만들어서 사용한다. (스킬 미작성)
 
-브랜치 전략·머지 방식·릴리스·커밋 컨벤션은 [CONTRIBUTING.md](../CONTRIBUTING.md) 참고.
+브랜치 전략·머지 방식·릴리스·커밋 컨벤션은 [CONTRIBUTING.md](../CONTRIBUTING.md), 단계별 명령어와 트러블슈팅은 [commands.md](commands.md) 참고.
 
 1. 이슈 생성
 2. 브랜치 생성 — `develop`에서 `feature/<이슈번호>-<요약>`
