@@ -1,6 +1,6 @@
 # Contributing
 
-작업 흐름 전체는 [docs/dev-workflow.md](docs/dev-workflow.md) 참고.
+작업 흐름은 Claude Code 스킬 5개로 단계별로 실행한다: [flow-start](.claude/skills/flow-start/SKILL.md) → [flow-work](.claude/skills/flow-work/SKILL.md) → [flow-ship](.claude/skills/flow-ship/SKILL.md) → [flow-review](.claude/skills/flow-review/SKILL.md) → [flow-finish](.claude/skills/flow-finish/SKILL.md)
 
 ## 브랜치 전략 — Git Flow 간소화
 
@@ -34,7 +34,7 @@ rebase merge는 커밋이 전부 그대로 올라가므로 커밋 하나하나�
 
 1. 발표 1~2주 전 `develop`에서 `release/<버전>`을 딴다.
 2. release에서는 버그 수정, 문서 정리, 버전 번호 변경만 한다. 새 기능은 develop에서 계속한다.
-3. release → `main` 머지 후 `v<버전>` 태그를 단다. `main` 머지는 곧 배포다 ([배포](docs/dev-workflow.md#배포-잠정)).
+3. release → `main` 머지 후 `v<버전>` 태그를 단다. `main` 머지는 곧 배포다.
 4. release → `develop` 머지.
 5. release 브랜치를 삭제한다.
 

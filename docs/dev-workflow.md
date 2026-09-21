@@ -6,7 +6,7 @@
 
 ## GitHub 흐름
 
-Claude Code 스킬 [github-flow](../.claude/skills/github-flow/SKILL.md)로 실행한다.
+Claude Code 스킬 5개로 단계별로 실행한다: [flow-start](../.claude/skills/flow-start/SKILL.md) → [flow-work](../.claude/skills/flow-work/SKILL.md) → [flow-ship](../.claude/skills/flow-ship/SKILL.md) → [flow-review](../.claude/skills/flow-review/SKILL.md) → [flow-finish](../.claude/skills/flow-finish/SKILL.md)
 
 브랜치 전략·머지 방식·릴리스·커밋 컨벤션은 [CONTRIBUTING.md](../CONTRIBUTING.md), 단계별 명령어와 트러블슈팅은 [commands.md](commands.md) 참고.
 
