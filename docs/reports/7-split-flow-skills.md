@@ -35,6 +35,13 @@
 | `flow-start`의 `git switch develop` → `git pull --prune` → `git switch -c`를 커밋 안 된 변경이 있는 상태에서 실행 | 이번 작업은 develop 작업 트리의 미커밋 변경을 그대로 옮겨 싣는 경우. 스킬에 이 경우 설명이 없음 | 원격에 새 커밋이 없어 `Already up to date`였고, 미커밋 변경은 새 브랜치로 그대로 따라왔다 |
 | 옛 스킬 삭제 후 `docs/dev-workflow.md`의 `github-flow` 링크가 끊김 | `CONTRIBUTING.md`만 갱신 대상에 있었음 | 링크 한 줄을 새 스킬로 교체 |
 
+## 리뷰 반영 (1차)
+
+`/code-review 8` 발견 사항 2건을 고쳤다.
+
+- `flow-ship`: 4단계 `gh pr checks P --watch`의 `P`를 얻는 방법이 없었다. PR이 이미 열려 있으면 3단계 전체를 건너뛰게 되어 있어서 더 그랬다. 3단계를 "생성은 건너뛴다"로 바꾸고, 새로 열었든 이미 있었든 `gh pr view --json number,url`로 `P`를 확인하게 했다.
+- `flow-review`: 체크리스트 체크를 `gh pr edit P --body-file pr.md`로 하는데 `pr.md`는 `flow-ship`이 남긴 로컬 파일이다. 없으면 실패하고, 오래됐으면 GitHub에서 고친 본문을 덮어쓴다. 현재 본문을 `gh pr view P --json body -q .body > pr.md`로 받아서 고친 뒤 올리게 했다.
+
 ## 남은 과제
 
 - `docs/commands.md`, `docs/dev-workflow.md` 아카이빙 (`CLAUDE.md`에 예정으로 적혀 있음)
