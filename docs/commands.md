@@ -110,7 +110,7 @@ gh issue view N --json state -q .state           # CLOSED인지 확인
 
 ## 본문의 백틱이 명령어로 실행됨
 
-**증상**: `gh issue create --body "... \`.gitignore\` ..."` 실행 시 `.gitignore: command not found`가 뜨고 본문에서 해당 부분이 사라진다.
+**증상**: ``gh issue create --body "... `.gitignore` ..."`` 실행 시 `.gitignore: command not found`가 뜨고 본문에서 해당 부분이 사라진다.
 
 **원인**: 큰따옴표 안의 백틱은 셸(bash, zsh 모두)에서 명령 치환이다. 백틱 사이 문자열이 명령어로 실행되고 결과로 바뀐다.
 
