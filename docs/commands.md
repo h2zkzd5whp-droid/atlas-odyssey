@@ -78,7 +78,7 @@ CI 워크플로 작성 후 사용.
 gh pr diff P
 ```
 
-Claude Code에서는 `/code-review P`.
+Claude Code에서는 `/code-review P`도 돌린다. 단, 결과가 비어 와도 직접 리뷰는 생략하지 않는다 ([트러블슈팅](#code-review-결과가-비어-옴)).
 
 ## 10. develop에 rebase merge
 
@@ -94,6 +94,8 @@ git switch develop
 git pull --prune
 git cherry develop feature/N-<요약>              # 전부 '-'면 develop에 다 들어간 것
 git branch -D feature/N-<요약>
+git cherry develop pr<P>                         # /code-review가 남긴 브랜치. 전부 '-'면
+git branch -D pr<P>
 gh issue view N --json state -q .state           # CLOSED인지 확인
 ```
 
@@ -141,6 +143,14 @@ gh issue view N --json state -q .state           # CLOSED인지 확인
 **해결**: GitHub 공식 apt 저장소에서 최신 gh를 설치한다 ([설치 안내](https://github.com/cli/cli/blob/trunk/docs/install_linux.md)). WSL은 2.101.0으로 올렸다 (2026-09-21). `gh --version`이 2.45면 다시 설치.
 
 macOS는 `brew install gh`로 최신 버전이 설치되므로 해당 없음.
+
+## /code-review 결과가 비어 옴
+
+**증상**: Claude Code에서 `/code-review P`를 돌리면 결과가 `(none)`으로 온다. PR #4에서는 마크다운 코드 스팬이 깨진 버전을 리뷰했는데도 Claude에게 넘어온 발견 사항이 없었다.
+
+**원인**: `/code-review`는 별도 에이전트로 실행되고, 발견 사항을 텍스트가 아니라 사용자 화면의 카드로만 표시하게 되어 있다. Claude가 받는 텍스트 결과는 비어 있어 "발견 0건"과 구분할 수 없다.
+
+**해결**: 빈 결과를 통과로 보지 않는다. `gh pr diff P`로 직접 리뷰하는 것이 실제 관문이다. 또한 `/code-review`는 `git fetch origin pull/P/head:prP`로 로컬 브랜치 `prP`를 남기므로 정리 단계에서 지운다.
 
 ## Windows 쪽에서 WSL 명령을 실행할 때만 생기는 문제
 
