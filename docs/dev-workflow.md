@@ -6,7 +6,7 @@
 
 ## GitHub 흐름
 
-Claude Code 스킬로 만들어서 사용한다. (스킬 미작성)
+Claude Code 스킬 [github-flow](../.claude/skills/github-flow/SKILL.md)로 실행한다.
 
 브랜치 전략·머지 방식·릴리스·커밋 컨벤션은 [CONTRIBUTING.md](../CONTRIBUTING.md), 단계별 명령어와 트러블슈팅은 [commands.md](commands.md) 참고.
 
