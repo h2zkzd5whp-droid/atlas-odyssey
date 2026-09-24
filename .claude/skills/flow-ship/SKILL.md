@@ -1,9 +1,9 @@
 ---
 name: flow-ship
-description: Step 3 of this repo's GitHub flow — commit by concern, push, open or update the PR into develop, and check CI. Use after flow-work.
+description: Step 3 of this repo's GitHub flow — commit by concern, push, and open or update the PR into develop. Use after flow-work.
 ---
 
-# 3. 커밋 · 푸시 · PR · CI
+# 3. 커밋 · 푸시 · PR
 
 흐름: flow-start → flow-work → **flow-ship** → flow-review → flow-finish
 
