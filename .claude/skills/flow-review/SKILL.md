@@ -25,10 +25,7 @@ gh pr view --json number,url -q '.number, .url'
    git rev-parse HEAD
    ```
 2. 사용자에게 PR 링크를 주고 diff 리뷰를 요청한다
-3. `/code-review P`를 돌린다. 돌리기 전에 이전 리뷰가 남긴 로컬 `prP` 브랜치가 있으면 지운다. 남아 있으면 리뷰가 첫 리뷰 때의 옛 커밋을 볼 수 있다. `prP`는 PR head를 받아 둔 사본이고 PR head는 원격 feature 브랜치에 그대로 있으므로 지워도 안전하다. 결과가 비어 와도 통과로 보지 않는다 (문서 버그를 놓친 적이 있다). `gh pr diff P`를 직접도 읽고, 문서는 렌더링(링크 앵커, 코드 스팬)까지 확인한다
-   ```bash
-   git branch -D prP  # 없으면 "not found" 에러가 나는데 무시해도 된다
-   ```
+3. `/code-review P`를 돌린다. 결과가 비어 와도 통과로 보지 않는다 (문서 버그를 놓친 적이 있다). `gh pr diff P`를 직접도 읽고, 문서는 렌더링(링크 앵커, 코드 스팬)까지 확인한다
 4. Claude의 발견 사항을 보고하고 사용자의 리뷰 결과를 기다린다
 
 ## 끝나면
