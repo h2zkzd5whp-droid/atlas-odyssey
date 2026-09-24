@@ -60,3 +60,12 @@
 - (medium) `flow-review` "끝나면"의 `gh pr view | sed | gh pr edit --body-file -` 파이프: `gh pr view`가 실패하면 빈 본문으로 PR을 덮어 `Closes #N`과 체크리스트가 사라진다. sed 패턴이 안 맞아도 조용히 넘어간다. → 본문을 변수로 받아, 비어 있지 않고 수정 뒤 달라졌을 때만 `gh pr edit`하게 바꿨다. 빈 본문·체크된 본문·체크 안 된 본문 세 경우를 쓰기 없이 돌려 확인했다
 - (nit) `flow-ship`의 description과 제목에 CI가 남아 있음 → 4번이 TODO라 둘 다에서 뺐다
 - `/code-review` 전후 `pr*` 브랜치: 이번에도 없음
+
+## 3회차 리뷰 결과
+
+- `/code-review 14`: 발견 사항 2건(low, 텍스트로 옴). 둘 다 이 PR에서는 고치지 않음
+  1. 목록 안 코드 블록의 heredoc 종료 `EOF`가 들여쓰기(3·5칸) 그대로 복사되면 heredoc이 안 닫힌다는 지적. Markdown 목록 안 코드 펜스는 들여쓰기를 빼고 읽는 게 표준이고 이번 `git commit -F -`도 정상 동작
+  2. `flow-work` description과 22번 줄에 "CI 실패로 돌아온 경우"가 남아 있음. CI 워크플로를 추가할 때 다시 쓰이므로 그때 맞춘다
+- `/code-review` 전후 `pr*` 브랜치: 없음
+- 체크박스 명령(P=14): 출력은 PR URL 한 줄. 이후 본문에 `Closes #13` 그대로, "PR diff를 직접 리뷰했다"는 `[x]`
+- 사용자는 이 PR의 diff 리뷰를 생략하고 끝까지 진행하라고 했다
