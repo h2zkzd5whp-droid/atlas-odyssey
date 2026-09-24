@@ -25,23 +25,21 @@ description: Step 3 of this repo's GitHub flow — commit by concern, push, open
    ```bash
    git push -u origin feature/N-<요약>
    ```
-3. PR. 이미 열려 있으면(`gh pr view --json number`) 생성은 건너뛴다. 본문은 `.github/pull_request_template.md` 형식을 채우고 첫 줄 `Closes #N`, 작업 내용에 보고서 경로를 적는다. "PR diff를 직접 리뷰했다"는 체크하지 않는다
-   ```bash
-   gh pr create --base develop --title "<type>: <summary>" --body-file pr.md
-   ```
-   새로 열었든 이미 있었든 PR 번호 `P`를 확인한다
+3. PR. 이 브랜치의 PR이 이미 있는지 확인한다
    ```bash
    gh pr view --json number,url -q '.number, .url'
    ```
-4. CI. 워크플로가 없으면 건너뛴다
-   ```bash
-   gh pr checks P --watch
-   ```
+   - 번호가 나오면: 그 PR을 쓴다. 푸시로 이미 갱신됐으므로 생성은 건너뛴다
+   - `no pull requests found`가 나오면: PR이 없다는 뜻이다(에러 아님). 새로 연다. 본문은 `.github/pull_request_template.md` 형식을 채우고 첫 줄 `Closes #N`, 작업 내용에 보고서 경로를 적는다. "PR diff를 직접 리뷰했다"는 체크하지 않는다
+     ```bash
+     gh pr create --base develop --title "<type>: <summary>" --body-file pr.md
+     ```
+     출력된 URL 끝의 숫자가 PR 번호 `P`다
+4. CI. TODO: CI 워크플로를 추가할 때 작성한다. 그전까지 이 단계는 없다
 
 ## 끝나면
 
-- CI 통과(또는 없음): PR 링크와 커밋 목록을 보고하고 멈춘다. 다음은 `flow-review`
-- CI 실패: 실패 내용을 보고하고 멈춘다. 다음은 `flow-work`
+PR 링크와 커밋 목록을 보고하고 멈춘다. 다음은 `flow-review`
 
 ## 멈추는 조건
 

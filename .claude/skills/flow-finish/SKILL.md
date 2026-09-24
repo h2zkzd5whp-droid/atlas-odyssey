@@ -28,12 +28,9 @@ gh pr view --json number,body -q '.number, .body'
    git pull --prune
    git cherry develop feature/N-<요약>
    git branch -D feature/N-<요약>
-   git cherry develop prP
-   git branch -D prP
    gh issue view N --json state -q .state
    ```
    - `git cherry` 결과가 전부 `-`일 때만 바로 다음 줄의 `git branch -D`를 실행한다. `+`가 하나라도 있으면 지우지 말고 멈춘다. `git cherry`는 `+`가 있어도 종료 코드가 0이라 `&&`로 이으면 안 된다
-   - `prP`는 `/code-review`가 남기는 브랜치다. 없으면 두 줄 다 건너뛴다
    - 이슈가 `CLOSED`가 아니면 PR 본문에 `Closes #N`이 있는지 확인하고 `gh issue close N --comment "Merged via #P"`
 
 ## 끝나면

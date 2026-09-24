@@ -13,6 +13,14 @@ description: Step 1 of this repo's GitHub flow — create an issue and a feature
 
 PR 제목을 `<type>: <summary>` 한 줄로 쓸 수 없거나 summary에 `and`가 들어가면 작업이 둘 이상이다. 사용자에게 나눠서 제안하고 첫 번째만 진행한다.
 
+## 시작 전 확인
+
+작업 트리가 깨끗한지 확인한다. 출력이 있으면(커밋 안 한 변경이 있으면) 멈추고 사용자에게 알린다.
+
+```bash
+git status --short
+```
+
 ## 절차
 
 1. 이슈 생성. 본문은 파일로 쓰고 `--body-file`로 넘긴다
