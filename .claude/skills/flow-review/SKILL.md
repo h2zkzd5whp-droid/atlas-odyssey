@@ -31,11 +31,15 @@ gh pr view --json number,url -q '.number, .url'
 ## 끝나면
 
 - 발견 사항이 있음(사용자 또는 Claude): 목록을 정리해 보고하고 멈춘다. 다음은 `flow-work`
-- 사용자가 통과를 확인함: PR 체크리스트의 "PR diff를 직접 리뷰했다"를 체크하고 멈춘다. 다음은 `flow-finish`. 본문은 로컬에 남은 파일이 아니라 현재 PR 본문을 받아서 고친다 (예전 파일로 덮으면 GitHub에서 고친 내용이 사라진다)
+- 사용자가 통과를 확인함: PR 체크리스트의 "PR diff를 직접 리뷰했다"를 체크하고 멈춘다. 다음은 `flow-finish`. 본문은 현재 PR 본문을 받아서 고친다. 받은 본문이 비었거나(조회 실패) 고쳐도 그대로면(문구 불일치) 수정하지 않고 멈춘다. 빈 본문으로 덮으면 `Closes #N`과 체크리스트가 사라진다
   ```bash
-  gh pr view P --json body -q .body \
-    | sed 's/- \[ \] PR diff를 직접 리뷰했다/- [x] PR diff를 직접 리뷰했다/' \
-    | gh pr edit P --body-file -
+  body=$(gh pr view P --json body -q .body)
+  new=$(printf '%s\n' "$body" | sed 's/- \[ \] PR diff를 직접 리뷰했다/- [x] PR diff를 직접 리뷰했다/')
+  if [ -n "$body" ] && [ "$new" != "$body" ]; then
+    printf '%s\n' "$new" | gh pr edit P --body-file -
+  else
+    echo "본문 조회 실패 또는 체크 문구 없음. 수정 안 함"
+  fi
   ```
 
 사용자의 통과 확인 없이 체크하거나 다음 단계로 넘어가지 않는다.
