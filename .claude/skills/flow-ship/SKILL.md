@@ -32,10 +32,10 @@ description: Step 3 of this repo's GitHub flow — commit by concern, push, open
    ```
 3. PR. 이 브랜치의 PR이 이미 있는지 확인한다
    ```bash
-   gh pr view --json number,url -q '.number, .url'
+   gh pr view --json number,url,state -q '.number, .url, .state'
    ```
-   - 번호가 나오면: 그 PR을 쓴다. 푸시로 이미 갱신됐으므로 생성은 건너뛴다
-   - `no pull requests found`가 나오면: PR이 없다는 뜻이다(에러 아님). 새로 연다. 본문은 `.github/pull_request_template.md` 형식을 채우고 첫 줄 `Closes #N`, 작업 내용에 보고서 경로를 적는다. "PR diff를 직접 리뷰했다"는 체크하지 않는다
+   - `OPEN`이면: 그 PR을 쓴다. 푸시로 이미 갱신됐으므로 생성은 건너뛴다
+   - `no pull requests found`(에러 아님)나 `CLOSED`·`MERGED`면: 새로 연다. 본문은 `.github/pull_request_template.md` 형식을 채우고 첫 줄 `Closes #N`, 작업 내용에 보고서 경로를 적는다. "PR diff를 직접 리뷰했다"는 체크하지 않는다
      ```bash
      gh pr create --base develop --title "<type>: <summary>" --body-file - <<'EOF'
      <본문>
