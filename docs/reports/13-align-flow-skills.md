@@ -15,6 +15,7 @@
 - `.claude/skills/flow-ship/SKILL.md`
 - `.claude/skills/flow-review/SKILL.md`
 - `.claude/skills/flow-finish/SKILL.md`
+- `CLAUDE.md` (리뷰 반영)
 - `docs/reports/13-align-flow-skills.md` (이 보고서)
 
 ## 테스트
@@ -44,3 +45,10 @@
 - `docs/commands.md`에 `gh pr checks`와 `prP` 설명이 남아 있다. 아카이빙 예정이라 손대지 않았다
 - 로컬 HEAD가 PR head와 다를 때 `/code-review`가 `prP`를 만드는지는 확인하지 않았다. 만든다면 `flow-start`의 작업 트리 확인과 별개로 남을 수 있다
 - CI 워크플로를 추가할 때 `flow-ship` 4번을 작성한다
+
+## 리뷰 반영 (flow-work 2회차)
+
+`/code-review` 1·2번을 반영했다. 3번(`prP` 삭제 한 줄 유지)은 #11·#13 두 번 모두 `prP`가 생기지 않아 반영하지 않았다.
+
+- 1번: 스킬 예시가 경로 없는 `issue.md`·`pr.md`·`msg.txt`를 써서 레포 루트에 임시 파일이 생길 수 있었다. 파일을 아예 만들지 않도록 따옴표 친 heredoc(`<<'EOF'`)을 `--body-file -`·`git commit -F -`로 넘기게 바꿨다. `flow-review`의 체크박스 체크는 `gh pr view | sed | gh pr edit --body-file -` 파이프로 바꿨다. 루트 `CLAUDE.md` 셸 규칙도 같은 방식으로 고쳤다
+- 2번: `flow-ship` 3번이 `state`까지 받아서 `OPEN`일 때만 기존 PR을 쓰고, 없거나 `CLOSED`·`MERGED`면 새로 연다
