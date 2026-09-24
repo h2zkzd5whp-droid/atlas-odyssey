@@ -43,18 +43,6 @@ Oracle Cloud Always Free (ARM A1, 서울 리전, 재고 없으면 춘천). 예�
 - 줄바꿈은 `.gitattributes`가 LF로 고정한다. `core.autocrlf`는 건드리지 않는다
 - gh: WSL은 GitHub 공식 apt 저장소의 최신판(Ubuntu 기본 저장소의 2.45는 `gh pr edit`가 실패함), macOS는 `brew install gh`
 
-### Windows 쪽에서 실행할 때
-
-WSL·macOS 터미널에서는 명령을 그대로 실행한다. 아래는 Windows 쪽(PowerShell·Git Bash)에서 `\\wsl.localhost\...` 경로로 작업할 때만 해당한다.
-
-- git·gh는 WSL 안에서 돌린다. Windows Git은 `fatal: detected dubious ownership`으로 막힌다
-- `wsl.exe -- bash -lc '...'`는 인자를 한 번 더 해석해 `$변수`가 먼저 풀린다. 명령을 스크립트 파일로 쓰고 실행한다
-- Git Bash는 `/mnt/c/...` 인자를 Windows 경로로 바꾼다. `MSYS_NO_PATHCONV=1`을 붙인다
-
-```bash
-MSYS_NO_PATHCONV=1 wsl.exe -d Ubuntu -- bash /mnt/c/.../script.sh
-```
-
 ### 셸
 
 - `gh ... --body "..."`에 백틱이 들어가면 명령 치환된다. 본문은 파일로 쓰고 `--body-file`, 커밋 메시지는 `git commit -F`
