@@ -33,9 +33,9 @@ gh pr view --json number,url -q '.number, .url'
 - 발견 사항이 있음(사용자 또는 Claude): 목록을 정리해 보고하고 멈춘다. 다음은 `flow-work`
 - 사용자가 통과를 확인함: PR 체크리스트의 "PR diff를 직접 리뷰했다"를 체크하고 멈춘다. 다음은 `flow-finish`. 본문은 로컬에 남은 파일이 아니라 현재 PR 본문을 받아서 고친다 (예전 파일로 덮으면 GitHub에서 고친 내용이 사라진다)
   ```bash
-  gh pr view P --json body -q .body > pr.md
-  # pr.md에서 "- [ ] PR diff를 직접 리뷰했다"를 "- [x] PR diff를 직접 리뷰했다"로 고친다
-  gh pr edit P --body-file pr.md
+  gh pr view P --json body -q .body \
+    | sed 's/- \[ \] PR diff를 직접 리뷰했다/- [x] PR diff를 직접 리뷰했다/' \
+    | gh pr edit P --body-file -
   ```
 
 사용자의 통과 확인 없이 체크하거나 다음 단계로 넘어가지 않는다.

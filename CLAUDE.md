@@ -45,4 +45,4 @@ Oracle Cloud Always Free (ARM A1, 서울 리전, 재고 없으면 춘천). 예�
 
 ### 셸
 
-- `gh ... --body "..."`에 백틱이 들어가면 명령 치환된다. 본문은 파일로 쓰고 `--body-file`, 커밋 메시지는 `git commit -F`
+- `gh ... --body "..."`에 백틱이 들어가면 명령 치환된다. 본문은 따옴표 친 heredoc(`<<'EOF'`)으로 `--body-file -`, 커밋 메시지는 `git commit -F -`. 임시 파일을 레포에 만들지 않는다
