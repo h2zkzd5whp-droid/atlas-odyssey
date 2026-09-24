@@ -23,9 +23,11 @@ git status --short
 
 ## 절차
 
-1. 이슈 생성. 본문은 파일로 쓰고 `--body-file`로 넘긴다
+1. 이슈 생성. 본문은 파일 없이 따옴표 친 heredoc으로 넘긴다
    ```bash
-   gh issue create --title "..." --body-file issue.md
+   gh issue create --title "..." --body-file - <<'EOF'
+   <본문>
+   EOF
    ```
 2. 브랜치 생성. `N`은 이슈 번호, `<요약>`은 짧은 영어 요약(예: `login-form`)
    ```bash
@@ -42,4 +44,4 @@ git status --short
 
 | 증상 | 원인 | 해결 |
 | --- | --- | --- |
-| `--body "..."` 안의 백틱 부분이 `command not found`를 내고 사라짐 | 큰따옴표 안 백틱은 bash·zsh 명령 치환 | `--body-file` 사용 |
+| `--body "..."` 안의 백틱 부분이 `command not found`를 내고 사라짐 | 큰따옴표 안 백틱은 bash·zsh 명령 치환 | 따옴표 친 heredoc(`<<'EOF'`)으로 `--body-file -` |

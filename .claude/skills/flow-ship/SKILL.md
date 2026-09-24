@@ -20,7 +20,12 @@ description: Step 3 of this repo's GitHub flow — commit by concern, push, open
    git add <파일>
    git commit -m "<type>: <summary>"
    ```
-   메시지에 백틱이 필요하면 `git commit -F msg.txt`
+   메시지에 백틱이 필요하면 파일 없이 따옴표 친 heredoc으로 넘긴다
+   ```bash
+   git commit -F - <<'EOF'
+   <type>: <summary>
+   EOF
+   ```
 2. 푸시
    ```bash
    git push -u origin feature/N-<요약>
@@ -32,7 +37,9 @@ description: Step 3 of this repo's GitHub flow — commit by concern, push, open
    - 번호가 나오면: 그 PR을 쓴다. 푸시로 이미 갱신됐으므로 생성은 건너뛴다
    - `no pull requests found`가 나오면: PR이 없다는 뜻이다(에러 아님). 새로 연다. 본문은 `.github/pull_request_template.md` 형식을 채우고 첫 줄 `Closes #N`, 작업 내용에 보고서 경로를 적는다. "PR diff를 직접 리뷰했다"는 체크하지 않는다
      ```bash
-     gh pr create --base develop --title "<type>: <summary>" --body-file pr.md
+     gh pr create --base develop --title "<type>: <summary>" --body-file - <<'EOF'
+     <본문>
+     EOF
      ```
      출력된 URL 끝의 숫자가 PR 번호 `P`다
 4. CI. TODO: CI 워크플로를 추가할 때 작성한다. 그전까지 이 단계는 없다
@@ -49,4 +56,4 @@ PR 링크와 커밋 목록을 보고하고 멈춘다. 다음은 `flow-review`
 
 | 증상 | 원인 | 해결 |
 | --- | --- | --- |
-| `--body "..."` 안의 백틱 부분이 `command not found`를 내고 사라짐 | 큰따옴표 안 백틱은 bash·zsh 명령 치환 | `--body-file`, 커밋은 `-F` |
+| `--body "..."` 안의 백틱 부분이 `command not found`를 내고 사라짐 | 큰따옴표 안 백틱은 bash·zsh 명령 치환 | 따옴표 친 heredoc(`<<'EOF'`)으로 `--body-file -`, 커밋은 `-F -` |
