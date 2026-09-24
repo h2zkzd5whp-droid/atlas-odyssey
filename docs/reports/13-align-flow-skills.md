@@ -5,7 +5,7 @@
 #11을 WSL에서 flow 스킬로 끝까지 돌려본 결과에 맞춰 스킬 설명을 고쳤다.
 
 - `flow-start`: "시작 전 확인" 추가. `git status --short`에 출력이 있으면 멈춘다
-- `flow-ship` 3번: 먼저 `gh pr view`로 이 브랜치의 PR을 확인하고, 번호가 나오면 그 PR을 쓰고, `no pull requests found`면(에러 아님) 새로 연다. PR 번호는 `gh pr create` 출력 URL에서 읽는다
+- `flow-ship` 3번: 먼저 `gh pr view`로 이 브랜치의 PR과 상태를 확인하고, `OPEN`이면 그 PR을 쓰고, `no pull requests found`(에러 아님)나 `CLOSED`·`MERGED`면 새로 연다. PR 번호는 `gh pr create` 출력 URL에서 읽는다
 - `flow-ship` 4번: `gh pr checks` 명령을 빼고 TODO로 바꿨다. CI 워크플로가 없으니 돌릴 게 없다. "끝나면"의 CI 실패 분기도 뺐다
 - `flow-review` 3번, `flow-finish` 2번: `prP` 브랜치 삭제 지시를 뺐다. #11에서 `/code-review`가 `prP`를 만들지 않았다
 
@@ -52,3 +52,11 @@
 
 - 1번: 스킬 예시가 경로 없는 `issue.md`·`pr.md`·`msg.txt`를 써서 레포 루트에 임시 파일이 생길 수 있었다. 파일을 아예 만들지 않도록 따옴표 친 heredoc(`<<'EOF'`)을 `--body-file -`·`git commit -F -`로 넘기게 바꿨다. `flow-review`의 체크박스 체크는 `gh pr view | sed | gh pr edit --body-file -` 파이프로 바꿨다. 루트 `CLAUDE.md` 셸 규칙도 같은 방식으로 고쳤다
 - 2번: `flow-ship` 3번이 `state`까지 받아서 `OPEN`일 때만 기존 PR을 쓰고, 없거나 `CLOSED`·`MERGED`면 새로 연다
+
+## 리뷰 반영 (flow-work 3회차)
+
+2회차 `/code-review` 결과: 발견 사항 2건. 사용자는 이 PR의 diff 리뷰를 생략하고 끝까지 진행하라고 했다.
+
+- (medium) `flow-review` "끝나면"의 `gh pr view | sed | gh pr edit --body-file -` 파이프: `gh pr view`가 실패하면 빈 본문으로 PR을 덮어 `Closes #N`과 체크리스트가 사라진다. sed 패턴이 안 맞아도 조용히 넘어간다. → 본문을 변수로 받아, 비어 있지 않고 수정 뒤 달라졌을 때만 `gh pr edit`하게 바꿨다. 빈 본문·체크된 본문·체크 안 된 본문 세 경우를 쓰기 없이 돌려 확인했다
+- (nit) `flow-ship`의 description과 제목에 CI가 남아 있음 → 4번이 TODO라 둘 다에서 뺐다
+- `/code-review` 전후 `pr*` 브랜치: 이번에도 없음
